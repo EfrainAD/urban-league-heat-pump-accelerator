@@ -139,7 +139,6 @@ const Login = () => {
             type="submit"
             color="primary"
             variant="contained"
-            onClick={() => doLogin}
             style={{
               btnstyle,
               borderRadius: "20px",
