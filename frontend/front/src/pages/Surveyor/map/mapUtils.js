@@ -1,11 +1,9 @@
 export const generateMapsLink = (locations) => {
-  const origin = locations[0];
-  const destination = locations[locations.length - 1];
+  locations = locations.map((location) => location?.replace(" ", ""));
 
-  const waypoints = locations
-    .slice(1, -1)
-    .map((location) => `${location.latitude},${location.longitude}`)
-    .join("|");
+  // destination is the last place you go to in the list
+  const waypoints = locations.slice(0, -1).join("|");
+  const destination = locations.at(-1);
 
-  return `https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}&waypoints=${waypoints}&travelmode=walking`;
+  return `https://www.google.com/maps/dir/?api=1&destination=${destination}&waypoints=${waypoints}&travelmode=walking`;
 };

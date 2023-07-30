@@ -16,10 +16,10 @@ const compareArrayByOrder = (a, b) => {
   return 0;
 };
 
-const generateGoogleMap = (checked) => {
-  const sortedCheck = [...checked].sort(compareArrayByOrder);
-
-  window.open(generateMapsLink(sortedCheck, "_blank"));
+const generateGoogleMap = (homes) => {
+  const sortedHomes = [...homes].sort(compareArrayByOrder);
+  const homeLocations = sortedHomes.map((home) => home?.geocode);
+  window.open(generateMapsLink(homeLocations, "_blank"));
 };
 
 const AssignmentUnit = ({ data }) => {
@@ -59,7 +59,11 @@ const AssignmentUnit = ({ data }) => {
       <Stack direction="row" spacing={2}>
         <Button
           variant="contained"
-          onClick={() => generateGoogleMap(checked)}
+          onClick={() =>
+            generateGoogleMap(
+              [...data].filter((home) => checkedSet.has(home.id))
+            )
+          }
           disabled={checked.length === 0}
         >
           GENERATE MAP
